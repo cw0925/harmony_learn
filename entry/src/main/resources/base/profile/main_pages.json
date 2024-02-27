@@ -1,6 +1,8 @@
 {
   "src": [
     "pages/SplashScreenPage",
-    "pages/MainPage"
+    "pages/MainPage",
+    "pages/Page",
+    "pages/TabPage"
   ]
 }
