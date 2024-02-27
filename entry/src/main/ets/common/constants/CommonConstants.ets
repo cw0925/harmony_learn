@@ -10,7 +10,7 @@ export class CommonConstants {
   /**
    * Delay seconds.
    */
-  static readonly DELAY_SECONDS: number = 3;
+  static readonly DELAY_SECONDS: number = 5;
 
   /**
    * Incremental value.
@@ -46,6 +46,11 @@ export class CommonConstants {
    * Main page url.
    */
   static readonly MAIN_PAGE_URL: string = 'pages/MainPage';
+
+  /**
+   * Tab page url.
+   */
+  static readonly TAB_PAGE_URL: string = 'pages/TabPage';
 
   /**
    * Copyright area column width.

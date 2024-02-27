@@ -14,24 +14,30 @@ struct SplashScreenPage {
   @State intervalID: number = CommonConstants.INTERVAL_ID_DEFAULT;
 
   build() {
-    Column() {
-      Stack({ alignContent: Alignment.TopStart }) {
-        Image($r('app.media.ic_splash_page_background'))
-          .width(CommonConstants.IMAGE_WIDTH)
-          .height(CommonConstants.IMAGE_HEIGHT)
+    Stack({ alignContent: Alignment.TopStart }) {
+      Image($r('app.media.bg_splash'))
+        .width(CommonConstants.IMAGE_WIDTH)
+        .height(CommonConstants.IMAGE_HEIGHT)
 
-        AdvertiseIcon()
-
+      Column() {
         SkipButton({ secondsCount: (CommonConstants.DELAY_SECONDS - this.pageShowTime) })
-      }
-      .layoutWeight(CommonConstants.STACK_LAYOUT_WEIGHT)
-      .width(CommonConstants.STACK_WIDTH)
 
-      CopyrightComponent()
+        Image($r('app.media.slogan'))
+          .objectFit(ImageFit.Contain)
+          .width(251)
+          .height(64)
+          .margin({top: 200})
+
+        Blank().height('50%')
+
+        Image($r('app.media.splash_logo'))
+          .objectFit(ImageFit.Contain)
+          .margin({bottom: 74})
+
+      }.height(CommonConstants.IMAGE_HEIGHT)
     }
-    .alignItems(HorizontalAlign.Start)
-    .width(CommonConstants.COLUMN_WIDTH)
-    .height(CommonConstants.COLUMN_HEIGHT)
+    .layoutWeight(CommonConstants.STACK_LAYOUT_WEIGHT)
+    .width(CommonConstants.STACK_WIDTH)
   }
 
   /**
@@ -42,7 +48,7 @@ struct SplashScreenPage {
       this.pageShowTime += CommonConstants.INCREMENT_VALUE;
       if (this.pageShowTime > CommonConstants.DELAY_SECONDS) {
         router.replaceUrl({
-          url: CommonConstants.MAIN_PAGE_URL
+          url: CommonConstants.TAB_PAGE_URL
         });
       }
     }, CommonConstants.INTERVAL_DELAY);
