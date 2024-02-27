@@ -1,4 +1,8 @@
+import TabCommunityView from '../view/TabCommunityView';
 import TabHomeView from '../view/TabHomeView';
+import TabMallView from '../view/TabMallView';
+import TabMatchView from '../view/TabMatchView';
+import TabMyView from '../view/TabMyView';
 @Entry
 @Component
 struct TabPage {
@@ -14,47 +18,28 @@ struct TabPage {
       .tabBar(this.TabBuilder('首页', 0, $r('app.media.tab_home_select'), $r('app.media.tab_home')))
 
       TabContent() {
-        Column(){
-          Text('社区内容')
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#007DFF')
+        TabCommunityView()
       }
       .tabBar(this.TabBuilder('社区', 1, $r('app.media.tab_community_select'), $r('app.media.tab_community')))
 
       TabContent() {
-        Column(){
-          Text('赛事内容')
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#007DFF')
+        TabMatchView()
       }
       .tabBar(this.TabBuilder('赛事', 2, $r('app.media.tab_match_select'), $r('app.media.tab_match')))
 
       TabContent() {
-        Column(){
-          Text('商城内容')
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#007DFF')
+        TabMallView()
       }
       .tabBar(this.TabBuilder('商城', 3, $r('app.media.tab_mall_select'), $r('app.media.tab_mall')))
 
       TabContent() {
-        Column(){
-          Text('我的内容')
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#007DFF')
+        TabMyView()
       }
       .tabBar(this.TabBuilder('我的', 4, $r('app.media.tab_my_select'), $r('app.media.tab_my')))
 
     }
     .barMode(BarMode.Fixed)
+    .scrollable(false)
   }
 
   @Builder TabBuilder(title: string, targetIndex: number, selectedImg: Resource, normalImg: Resource) {
