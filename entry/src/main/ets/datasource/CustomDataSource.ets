@@ -57,7 +57,12 @@ class BasicDataSource implements IDataSource {
 }
 
 export class NewsDataSource extends BasicDataSource {
-  private dataArray: string[] = ['/path/image0', '/path/image1', '/path/image2', '/path/image3'];
+  private dataArray: string[] = [
+    '', '', '', '',
+    '', '', '', '',
+    '', '', '', '',
+    '', '', '', ''
+  ];
 
   public totalCount(): number {
     return this.dataArray.length;
