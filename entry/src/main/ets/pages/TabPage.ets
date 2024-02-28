@@ -1,11 +1,13 @@
 import TabCommunityView from '../view/TabCommunityView';
-import TabHomeView from '../view/TabHomeView';
 import TabMallView from '../view/TabMallView';
 import TabMatchView from '../view/TabMatchView';
 import TabMyView from '../view/TabMyView';
+import TabHomeView from './home/view/TabHomeView';
+
 @Entry
 @Component
 struct TabPage {
+
   private tabsController : TabsController = new TabsController()
   @State currentIndex:number = 0;
 
@@ -41,7 +43,7 @@ struct TabPage {
     .barMode(BarMode.Fixed)
     .scrollable(false)
   }
-
+  // 自定义TabBar
   @Builder TabBuilder(title: string, targetIndex: number, selectedImg: Resource, normalImg: Resource) {
     Column() {
       Image(this.currentIndex === targetIndex ? selectedImg : normalImg)

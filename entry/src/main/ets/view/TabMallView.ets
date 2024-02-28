@@ -4,7 +4,7 @@ import { CommonConstants } from '../common/constants/CommonConstants';
  * Copyright component for splash screen page.
  */
 @Component
-export default struct TabHomeView {
+export default struct TabMallView {
   build() {
     Column() {
       Row() {
