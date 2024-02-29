@@ -32,6 +32,18 @@
           }
         ]
       }
+    ],
+    "requestPermissions":[
+      {
+        "name" : "ohos.permission.INTERNET",
+        "reason": "$string:net_permission",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when":"inuse"
+        }
+      }
     ]
   }
 }

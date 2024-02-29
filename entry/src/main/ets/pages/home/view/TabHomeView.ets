@@ -1,5 +1,4 @@
 import util from '@ohos.util';
-import { CommonConstants } from '../../../common/constants/CommonConstants';
 import { NewsDataSource } from '../../../datasource/CustomDataSource';
 
 /**
@@ -59,7 +58,23 @@ export default struct TabHomeView {
   }
 
   @Builder BuildActivity() {
+    Column() {
+      Row() {
+        Image($r('app.media.home_temp'))
+          .width('33%')
+        Image($r('app.media.home_temp'))
+          .width('33%')
+        Image($r('app.media.home_temp'))
+          .width('33%')
+      }
 
+      Row() {
+        Image($r('app.media.home_temp'))
+          .width('50%')
+        Image($r('app.media.home_temp'))
+          .width('50%')
+      }
+    }
   }
 
   @Builder BuildGrid() {

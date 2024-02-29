@@ -27,6 +27,10 @@
     {
       "name": "copyright_title",
       "value": "视频"
+    },
+    {
+      "name": "net_permission",
+      "value": "App需要连接网络请求数据"
     }
   ]
 }
