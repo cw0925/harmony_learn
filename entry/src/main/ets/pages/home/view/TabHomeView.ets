@@ -1,5 +1,9 @@
 import util from '@ohos.util';
+import { ApiList } from '../../../common/http/ApiList';
+import axiosClient from '../../../common/http/AxiosRequest';
+import httpClient from '../../../common/http/request';
 import { NewsDataSource } from '../../../datasource/CustomDataSource';
+import { HomeModel } from '../../../models/HomeModel';
 
 /**
  * Copyright component for splash screen page.
@@ -8,13 +12,37 @@ import { NewsDataSource } from '../../../datasource/CustomDataSource';
 export default struct TabHomeView {
 
   private categoryList: any[] = [
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '体育资讯'},
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '官方赛事'},
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '协会组织'},
+    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '赛事直播'},
+    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '同城约战'},
     {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '场馆预定'},
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '文旅中心'}
+    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '我的赛事'},
   ];
+
+  private matchList: any[] = [
+    {'key': 0,'icon': $r('app.media.home_temp'), 'name': '赛事直播'},
+    {'key': 1,'icon': $r('app.media.home_temp'), 'name': '同城约战'},
+    {'key': 2,'icon': $r('app.media.home_temp'), 'name': '场馆预定'},
+    {'key': 3,'icon': $r('app.media.home_temp'), 'name': '我的赛事'},
+  ];
+
   private data: NewsDataSource = new NewsDataSource()
+
+  aboutToAppear() {
+    axiosClient.post<Record<string, string>>({
+      url: ApiList.baseUrl + ApiList.appGateway + "/common/sendSmsCode",
+      // params: { "phone": '13140015925' },
+      data: { "phone": '13140015925' },
+      checkResultCode: false,
+      checkLoginState: false,
+      showLoading: false
+      // headers: { "Accept": "application/json" } as AxiosRequestHeaders
+    })
+
+    // httpClient.post<Record<string, string>>({
+    //   url: ApiList.baseUrl + ApiList.appGateway + "/common/sendSmsCode",
+    //   extraData: { "phone": '13140015925' }
+    // })
+  }
 
   build() {
     Tabs({ barPosition: BarPosition.Start }) {
@@ -22,7 +50,17 @@ export default struct TabHomeView {
       TabContent() {
         this.BuildContent()
       }
-      .tabBar('资讯')
+      .tabBar('赛事')
+
+      TabContent() {
+        this.BuildContent()
+      }
+      .tabBar('协会')
+
+      TabContent() {
+        this.BuildContent()
+      }
+      .tabBar('俱乐部')
 
     }
     .barMode(BarMode.Scrollable)
@@ -32,9 +70,9 @@ export default struct TabHomeView {
   @Builder BuildContent() {
     Column() {
       this.BuildCategory()
-      this.BuildActivity()
-      this.BuildGrid()
+      this.BuildList()
     }
+    .height('100%')
   }
 
   @Builder BuildCategory() {
@@ -53,8 +91,64 @@ export default struct TabHomeView {
         }
       }, item => item.key)
     }
-    .listDirection(Axis.Vertical)
-    .lanes(5)
+    .lanes(4)
+  }
+
+  @Builder BuildList() {
+    List() {
+      ForEach(this.matchList, (item: any) => {
+        ListItem() {
+          this.BuildItem()
+        }
+      }, item => item.key)
+    }
+  }
+
+  @Builder BuildItem() {
+    Column() {
+      Row() {
+        Image($r('app.media.home_temp'))
+          .width(141)
+          .height(88)
+        Column() {
+          Text('2023年全国青少年网球排名总决赛暨中国青少年网球巡回赛总决赛(U12/U14/U16-CTJ-A2000)')
+          Row() {
+            Image($r('app.media.address'))
+              .width(12)
+              .height(12)
+            Text('扬州市羽毛球协会扬州市羽毛球协会')
+          }
+        }
+        .justifyContent(FlexAlign.Start)
+        .alignItems(HorizontalAlign.Start)
+      }
+
+      Row() {
+
+        Row() {
+          Text('扬州市')
+          Divider()
+            .width(1)
+            .height(10)
+          Image($r('app.media.address'))
+            .width(12)
+            .height(12)
+          Text('扬州市羽')
+        }
+
+        Row() {
+          Image($r('app.media.address'))
+            .width(12)
+            .height(12)
+          Text('扬州市')
+        }
+
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.SpaceBetween)
+
+      Divider()
+    }
   }
 
   @Builder BuildActivity() {
@@ -121,5 +215,9 @@ export default struct TabHomeView {
     .width('100%')
     .borderRadius(10)
     .backgroundColor(Color.White)
+  }
+
+  onPageShow() {
+    console.log('TabHomeView === onPageShow')
   }
 }
