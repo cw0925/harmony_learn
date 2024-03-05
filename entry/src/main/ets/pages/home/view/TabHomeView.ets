@@ -4,6 +4,7 @@ import axiosClient from '../../../common/http/AxiosRequest';
 import httpClient from '../../../common/http/request';
 import { NewsDataSource } from '../../../datasource/CustomDataSource';
 import { HomeModel } from '../../../models/HomeModel';
+import { MenuList, MenuModel } from '../../../models/MenuModel';
 
 /**
  * Copyright component for splash screen page.
@@ -27,21 +28,19 @@ export default struct TabHomeView {
 
   private data: NewsDataSource = new NewsDataSource()
 
+  @State menuList: MenuList = [];
+
   aboutToAppear() {
-    axiosClient.post<Record<string, string>>({
-      url: ApiList.baseUrl + ApiList.appGateway + "/common/sendSmsCode",
-      // params: { "phone": '13140015925' },
-      data: { "phone": '13140015925' },
+    axiosClient.get<MenuModel>({
+      url: ApiList.menuList,
+      params: {'version': '1.2.0'},
+      // data: { "phone": '13140015925' },
       checkResultCode: false,
       checkLoginState: false,
-      showLoading: false
-      // headers: { "Accept": "application/json" } as AxiosRequestHeaders
+      showLoading: true
+    }).then(res => {
+      this.menuList = res.list;
     })
-
-    // httpClient.post<Record<string, string>>({
-    //   url: ApiList.baseUrl + ApiList.appGateway + "/common/sendSmsCode",
-    //   extraData: { "phone": '13140015925' }
-    // })
   }
 
   build() {
@@ -77,7 +76,7 @@ export default struct TabHomeView {
 
   @Builder BuildCategory() {
     List() {
-      ForEach(this.categoryList, (item: any) => {
+      ForEach(this.menuList, (item: any) => {
         ListItem() {
           Column() {
             Image(item.icon)

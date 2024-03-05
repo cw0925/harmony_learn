@@ -14,7 +14,7 @@ import { ApiList } from './ApiList';
  * axios请求客户端创建
  */
 const axiosClient = new AxiosHttpRequest({
-  baseURL: ApiList.baseUrl + ApiList.appGateway,
+  baseURL: ApiList.baseUrl,
   timeout: 10 * 1000,
   checkResultCode: false,
   headers: {

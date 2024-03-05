@@ -1,6 +1,10 @@
 import router from '@ohos.router';
 import CopyrightComponent from '../view/CopyrightComponent';
 import { CommonConstants } from '../common/constants/CommonConstants';
+import axiosClient from '../common/http/AxiosRequest';
+import { ApiList } from '../common/http/ApiList';
+import { StorageUtil } from '../utils/StorageUtil';
+import { StorageKeys } from '../common/constants/StorageKeys';
 
 /**
  * SplashScreenPage is the entry of the application and shows how to develop a front page.
@@ -12,6 +16,22 @@ import { CommonConstants } from '../common/constants/CommonConstants';
 struct SplashScreenPage {
   @State pageShowTime: number = CommonConstants.TIME_DEFAULT_VALUE;
   @State intervalID: number = CommonConstants.INTERVAL_ID_DEFAULT;
+
+  aboutToAppear() {
+    this.passwordLogin()
+  }
+
+  passwordLogin() {
+    axiosClient.post<Record<string, string>>({
+      url: ApiList.pwdLogin,
+      data: {'phone': '13140015925', 'password': 'cw123456'},
+      checkResultCode: false,
+      checkLoginState: false,
+      showLoading: false
+    }).then((res) => {
+      StorageUtil.put(StorageKeys.Token, res.token)
+    });
+  }
 
   build() {
     Stack({ alignContent: Alignment.TopStart }) {
@@ -44,14 +64,14 @@ struct SplashScreenPage {
    * When the SplashScreenPage is displayed, switch to the next page after 3 seconds.
    */
   onPageShow() {
-    this.intervalID = setInterval(() => {
-      this.pageShowTime += CommonConstants.INCREMENT_VALUE;
-      if (this.pageShowTime > CommonConstants.DELAY_SECONDS) {
-        router.replaceUrl({
-          url: CommonConstants.TAB_PAGE_URL
-        });
-      }
-    }, CommonConstants.INTERVAL_DELAY);
+    // this.intervalID = setInterval(() => {
+    //   this.pageShowTime += CommonConstants.INCREMENT_VALUE;
+    //   if (this.pageShowTime > CommonConstants.DELAY_SECONDS) {
+    //     router.replaceUrl({
+    //       url: CommonConstants.TAB_PAGE_URL
+    //     });
+    //   }
+    // }, CommonConstants.INTERVAL_DELAY);
   }
 
   /**
