@@ -3,7 +3,6 @@ import hilog from '@ohos.hilog';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import type Want from '@ohos.app.ability.Want';
 import type window from '@ohos.window';
-import { ImageKnife } from '@ohos/imageknife'
 /**
  * Lift cycle management of Ability.
  */
@@ -27,8 +26,6 @@ export default class EntryAbility extends UIAbility {
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
     });
-    // 初始化全局ImageKnife
-    ImageKnife.with(this.context);
   }
 
   onWindowStageDestroy(): void {

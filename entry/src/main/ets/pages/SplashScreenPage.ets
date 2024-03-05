@@ -64,14 +64,14 @@ struct SplashScreenPage {
    * When the SplashScreenPage is displayed, switch to the next page after 3 seconds.
    */
   onPageShow() {
-    // this.intervalID = setInterval(() => {
-    //   this.pageShowTime += CommonConstants.INCREMENT_VALUE;
-    //   if (this.pageShowTime > CommonConstants.DELAY_SECONDS) {
-    //     router.replaceUrl({
-    //       url: CommonConstants.TAB_PAGE_URL
-    //     });
-    //   }
-    // }, CommonConstants.INTERVAL_DELAY);
+    this.intervalID = setInterval(() => {
+      this.pageShowTime += CommonConstants.INCREMENT_VALUE;
+      if (this.pageShowTime > CommonConstants.DELAY_SECONDS) {
+        router.replaceUrl({
+          url: CommonConstants.TAB_PAGE_URL
+        });
+      }
+    }, CommonConstants.INTERVAL_DELAY);
   }
 
   /**

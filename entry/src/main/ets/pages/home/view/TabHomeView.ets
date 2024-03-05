@@ -28,23 +28,11 @@ export default struct TabHomeView {
 
   private data: NewsDataSource = new NewsDataSource()
 
+  private menuList: MenuList = [];
+
   aboutToAppear() {
-    axiosClient.get<Record<string, string>>({
-      url: ApiList.menuList,
-      params: { "version": '1.2.0' },
-      data: { "version": '1.2.0' },
-    axiosClient.get<MenuModel>({
-      url: ApiList.menuList,
-      params: {'version': '1.2.0'},
-      // data: { "phone": '13140015925' },
-      checkResultCode: false,
-      checkLoginState: false,
-      showLoading: true
-      // headers: { "Accept": "application/json" } as AxiosRequestHeaders
-      showLoading: true
-    }).then(res => {
-      this.menuList = res.list;
-    })
+
+    axiosClient.get<MenuModel>({'url': ApiList.menuList}).then((res) => { this.menuList = res.list;})
   }
 
   build() {
@@ -80,7 +68,7 @@ export default struct TabHomeView {
 
   @Builder BuildCategory() {
     List() {
-      ForEach(this.menuList, (item: any) => {
+      ForEach(this.matchList, (item: any) => {
         ListItem() {
           Column() {
             Image(item.icon)
