@@ -10,4 +10,6 @@ export class ApiList {
 
   static readonly pwdLogin: string = ApiList.appGateway + "/login/loginByPwd"
 
+  static readonly menuList: string = "/home-column/list"
+
 }

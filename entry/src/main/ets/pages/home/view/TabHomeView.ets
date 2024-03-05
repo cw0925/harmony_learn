@@ -28,15 +28,19 @@ export default struct TabHomeView {
 
   private data: NewsDataSource = new NewsDataSource()
 
-  @State menuList: MenuList = [];
-
   aboutToAppear() {
+    axiosClient.get<Record<string, string>>({
+      url: ApiList.menuList,
+      params: { "version": '1.2.0' },
+      data: { "version": '1.2.0' },
     axiosClient.get<MenuModel>({
       url: ApiList.menuList,
       params: {'version': '1.2.0'},
       // data: { "phone": '13140015925' },
       checkResultCode: false,
       checkLoginState: false,
+      showLoading: true
+      // headers: { "Accept": "application/json" } as AxiosRequestHeaders
       showLoading: true
     }).then(res => {
       this.menuList = res.list;
