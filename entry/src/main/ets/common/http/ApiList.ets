@@ -4,4 +4,6 @@ export class ApiList {
 
   static readonly appGateway: string = "/yangzhou-c-rest"
 
+  static readonly menuList: string = "/home-column/list"
+
 }

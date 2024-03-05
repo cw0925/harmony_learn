@@ -28,13 +28,13 @@ export default struct TabHomeView {
   private data: NewsDataSource = new NewsDataSource()
 
   aboutToAppear() {
-    axiosClient.post<Record<string, string>>({
-      url: ApiList.baseUrl + ApiList.appGateway + "/common/sendSmsCode",
-      // params: { "phone": '13140015925' },
-      data: { "phone": '13140015925' },
+    axiosClient.get<Record<string, string>>({
+      url: ApiList.menuList,
+      params: { "version": '1.2.0' },
+      data: { "version": '1.2.0' },
       checkResultCode: false,
       checkLoginState: false,
-      showLoading: false
+      showLoading: true
       // headers: { "Accept": "application/json" } as AxiosRequestHeaders
     })
 
