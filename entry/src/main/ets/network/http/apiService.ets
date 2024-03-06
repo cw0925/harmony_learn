@@ -1,5 +1,5 @@
 import { HomeModel } from '../../models/HomeModel'
-import { CommonConstants } from '../constants/CommonConstants'
+import { CommonConstants } from '../../common/constants/CommonConstants'
 import { ApiResponse } from './AxiosHttp'
 import axiosClient from './AxiosRequest'
 import httpClient from './request'

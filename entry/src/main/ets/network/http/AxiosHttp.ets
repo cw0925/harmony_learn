@@ -1,6 +1,6 @@
 import axios, {
   AxiosInstance,
-  AxiosRequestConfig,
+  AxiosProxyConfig,
   AxiosRequestHeaders,
   AxiosResponse,
   InternalAxiosRequestConfig
@@ -50,6 +50,7 @@ interface HttpRequestConfig extends InternalAxiosRequestConfig {
   needJumpToLogin?: boolean //是否需要跳转到登陆页面
   interceptorHooks?: InterceptorHooks;
   headers?: AxiosRequestHeaders
+  proxy?: AxiosProxyConfig | false;
 }
 
 

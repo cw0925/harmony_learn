@@ -1,8 +1,8 @@
 import router from '@ohos.router';
 import CopyrightComponent from '../view/CopyrightComponent';
 import { CommonConstants } from '../common/constants/CommonConstants';
-import axiosClient from '../common/http/AxiosRequest';
-import { ApiList } from '../common/http/ApiList';
+import axiosClient from '../network/http/AxiosRequest';
+import { ApiList } from '../network/http/ApiList';
 import { StorageUtil } from '../utils/StorageUtil';
 import { StorageKeys } from '../common/constants/StorageKeys';
 

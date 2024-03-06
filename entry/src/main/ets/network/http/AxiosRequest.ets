@@ -3,7 +3,7 @@ import { AxiosError, AxiosRequestHeaders } from '@ohos/axios';
 import { LogUtil } from '../../utils/LogUtil';
 import { JsonUtil } from '../../utils/JsonUtil';
 import { StorageUtil } from '../../utils/StorageUtil';
-import { StorageKeys } from '../constants/StorageKeys';
+import { StorageKeys } from '../../common/constants/StorageKeys';
 import { Router } from '../../route/Router';
 import { RoutePath } from '../../route/RoutePath';
 import { hideLoadingDialog } from '../../utils/DialogUtil';
@@ -20,6 +20,10 @@ const axiosClient = new AxiosHttpRequest({
   headers: {
     'Content-Type': 'application/json'
   } as AxiosRequestHeaders,
+  proxy:{
+    host: '192.168.1.252',
+    port: 7035,
+  },
   interceptorHooks: {
     requestInterceptor: async (config) => {
       // 在发送请求之前做一些处理，例如打印请求信息
@@ -28,6 +32,7 @@ const axiosClient = new AxiosHttpRequest({
       LogUtil.debug('网络请求Request Params:', `\n${JsonUtil.stringify(config.params)}`);
       LogUtil.debug('网络请求Request Data:', `${JsonUtil.stringify(config.data)}`);
       axiosClient.config.showLoading = config.showLoading
+      axiosClient.config.headers.token = 'e43683f9-264d-461e-8e6d-a7e716dfdea9'
       if (config.showLoading) {
         showLoadingDialog("加载中...")
       }

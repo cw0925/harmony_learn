@@ -1,10 +1,9 @@
-import util from '@ohos.util';
-import { ApiList } from '../../../common/http/ApiList';
-import axiosClient from '../../../common/http/AxiosRequest';
-import httpClient from '../../../common/http/request';
+import { ApiList } from '../../../network/http/ApiList';
+import axiosClient from '../../../network/http/AxiosRequest';
 import { NewsDataSource } from '../../../datasource/CustomDataSource';
-import { HomeModel } from '../../../models/HomeModel';
-import { MenuList, MenuModel } from '../../../models/MenuModel';
+import { MenuList, MenuModel } from '../../../models/MenuList';
+import { MatchList, MatchModel } from '../../../models/MatchList';
+import { AxiosRequestHeaders } from '@ohos/axios';
 
 /**
  * Copyright component for splash screen page.
@@ -12,27 +11,45 @@ import { MenuList, MenuModel } from '../../../models/MenuModel';
 @Component
 export default struct TabHomeView {
 
-  private categoryList: any[] = [
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '赛事直播'},
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '同城约战'},
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '场馆预定'},
-    {'key': util.generateRandomUUID(true),'icon': $r('app.media.home_temp'), 'name': '我的赛事'},
-  ];
-
-  private matchList: any[] = [
-    {'key': 0,'icon': $r('app.media.home_temp'), 'name': '赛事直播'},
-    {'key': 1,'icon': $r('app.media.home_temp'), 'name': '同城约战'},
-    {'key': 2,'icon': $r('app.media.home_temp'), 'name': '场馆预定'},
-    {'key': 3,'icon': $r('app.media.home_temp'), 'name': '我的赛事'},
-  ];
-
   private data: NewsDataSource = new NewsDataSource()
 
-  private menuList: MenuList = [];
+  @State menuList: MenuModel[] = [];
+  @State matchList: MatchModel[] = [];
 
   aboutToAppear() {
-
-    axiosClient.get<MenuModel>({'url': ApiList.menuList}).then((res) => { this.menuList = res.list;})
+    ///menu
+    axiosClient.get<MenuList>({
+      'url': ApiList.menuList,
+      checkLoginState: false
+    }).then((res)=>{
+      for (let index = 0; index < res.data.length; index++) {
+        const element = res.data[index];
+        if(element.status == 1 && element.type == 1) {
+          this.menuList.push(element)
+        }
+      }
+    })
+    ///赛事列表
+    axiosClient.post<MatchList>({
+      url: ApiList.matchList,
+      data: {
+        "data": {
+          "categoryIds": [],
+          "keyword": "",
+          "sort": 1,
+          "sorting": 1,
+        },
+        "page": 1,
+        "rows": 10
+      },
+      headers: {
+      'Content-Type': 'application/json',
+        'Authorization': 'e43683f9-264d-461e-8e6d-a7e716dfdea9'
+    } as AxiosRequestHeaders,
+      checkLoginState: false
+    }).then((res)=>{
+      this.matchList = res.data
+    })
   }
 
   build() {
@@ -68,46 +85,50 @@ export default struct TabHomeView {
 
   @Builder BuildCategory() {
     List() {
-      ForEach(this.matchList, (item: any) => {
+      ForEach(this.menuList, (item: MenuModel) => {
         ListItem() {
           Column() {
             Image(item.icon)
-              .width(40)
-              .height(40)
-              .margin(10)
-            Text(item.name).fontSize(20)
+              .width(53)
+              .height(53)
+              .margin({bottom: 8})
+              .objectFit(ImageFit.Contain)
+            Text(item.name)
+              .fontSize(12)
+              .fontWeight(400)
+              .fontColor('#000000')
           }
           .width('100%')
           .justifyContent(FlexAlign.Start)
         }
-      }, item => item.key)
+      })
     }
     .lanes(4)
   }
 
   @Builder BuildList() {
     List() {
-      ForEach(this.matchList, (item: any) => {
+      ForEach(this.matchList, (item: MatchModel) => {
         ListItem() {
-          this.BuildItem()
+          this.BuildItem(item)
         }
-      }, item => item.key)
+      })
     }
   }
 
-  @Builder BuildItem() {
+  @Builder BuildItem(item: MatchModel) {
     Column() {
       Row() {
-        Image($r('app.media.home_temp'))
+        Image(item.cover.cover)
           .width(141)
           .height(88)
         Column() {
-          Text('2023年全国青少年网球排名总决赛暨中国青少年网球巡回赛总决赛(U12/U14/U16-CTJ-A2000)')
+          Text(item.name)
           Row() {
             Image($r('app.media.address'))
               .width(12)
               .height(12)
-            Text('扬州市羽毛球协会扬州市羽毛球协会')
+            Text(item.place)
           }
         }
         .justifyContent(FlexAlign.Start)
@@ -124,15 +145,10 @@ export default struct TabHomeView {
           Image($r('app.media.address'))
             .width(12)
             .height(12)
-          Text('扬州市羽')
+          Text(item.beginTime)
         }
 
-        Row() {
-          Image($r('app.media.address'))
-            .width(12)
-            .height(12)
-          Text('扬州市')
-        }
+        Text('扬州市')
 
       }
       .width('100%')
