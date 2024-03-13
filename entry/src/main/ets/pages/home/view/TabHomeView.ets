@@ -4,6 +4,10 @@ import { NewsDataSource } from '../../../datasource/CustomDataSource';
 import { MenuList, MenuModel } from '../../../models/MenuList';
 import { MatchList, MatchModel } from '../../../models/MatchList';
 import { AxiosRequestHeaders } from '@ohos/axios';
+import { Router } from '../../../route/Router';
+import { RoutePath } from '../../../route/RoutePath';
+import router from '@ohos.router';
+import { CommonConstants } from '../../../common/constants/CommonConstants';
 
 /**
  * Copyright component for splash screen page.
@@ -101,9 +105,16 @@ export default struct TabHomeView {
           .width('100%')
           .justifyContent(FlexAlign.Start)
         }
+        .onClick(() => { this.onItemClick(item.columnNo) })
       })
     }
     .lanes(4)
+  }
+
+  onItemClick(index: number) {
+    if(index == 157) {
+      Router.push(RoutePath.MatchLivePage,)
+    }
   }
 
   @Builder BuildList() {
@@ -117,8 +128,8 @@ export default struct TabHomeView {
   }
 
   @Builder BuildItem(item: MatchModel) {
-    Column() {
-      Row() {
+    Column({space: 8}) {
+      Row({space: 8}) {
         Image(item.cover.cover)
           .width(141)
           .height(88)
@@ -134,6 +145,10 @@ export default struct TabHomeView {
         .justifyContent(FlexAlign.Start)
         .alignItems(HorizontalAlign.Start)
       }
+      .width('100%')
+      .margin({top: 8})
+      .justifyContent(FlexAlign.Start)
+      .alignItems(VerticalAlign.Center)
 
       Row() {
 
@@ -145,7 +160,7 @@ export default struct TabHomeView {
           Image($r('app.media.address'))
             .width(12)
             .height(12)
-          Text(item.beginTime)
+          Text(item.beginTime.split(',')[0])
         }
 
         Text('扬州市')

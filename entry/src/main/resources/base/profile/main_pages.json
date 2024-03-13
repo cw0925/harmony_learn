@@ -2,6 +2,8 @@
   "src": [
     "pages/SplashScreenPage",
     "pages/MainPage",
-    "pages/TabPage"
+    "pages/TabPage",
+    "pages/match/MatchLivePage",
+    "pages/match/LivePlayerPage"
   ]
 }

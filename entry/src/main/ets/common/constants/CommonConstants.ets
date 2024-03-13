@@ -53,6 +53,11 @@ export class CommonConstants {
   static readonly TAB_PAGE_URL: string = 'pages/TabPage';
 
   /**
+   * Tab page url.
+   */
+  static readonly MATCH_LIVE_PAGE_URL: string = 'pages/match/MatchLivePage';
+
+  /**
    * Copyright area column width.
    */
   static readonly COPYRIGHT_AREA_COLUMN_WIDTH: string = '100%';

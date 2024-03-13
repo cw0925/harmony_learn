@@ -13,4 +13,8 @@ export class RoutePath {
   static readonly TestHorizontalPage = "pages/test/TestHorizontalPage"
   static readonly TestHorizontalPage2 = "pages/test/TestHorizontalPage2"
   static readonly CoordinatePage = "pages/hot/CoordinatePage"
+
+  static readonly MatchLivePage = "pages/match/MatchLivePage"
+  static readonly LivePlayerPage = "pages/match/LivePlayerPage"
+
 }
