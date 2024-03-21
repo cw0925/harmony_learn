@@ -3,7 +3,6 @@
     "pages/SplashScreenPage",
     "pages/MainPage",
     "pages/TabPage",
-    "pages/match/MatchLivePage",
-    "pages/match/LivePlayerPage"
+    "pages/match/MatchLivePage"
   ]
 }

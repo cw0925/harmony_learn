@@ -32,7 +32,7 @@ struct MatchLivePage {
                 .textAlign(TextAlign.Center)
             }
             .onClick(() => {
-              Router.push(RoutePath.LivePlayerPage,)
+              // Router.push(RoutePath.LivePlayerPage,)
             })
           }, day => day)
         }, day => day)
